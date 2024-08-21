@@ -2,16 +2,18 @@ const convertButton = document.querySelector(".convert-button")
 const currencySelect = document.querySelector(".currency-select")
 
 
-function convertValues() {
+const convertValues = async ()=> {
   const inputCurrencyValue = document.querySelector(".input-currency").value
   const currencyValueToConvert = document.querySelector(".currency-value-to-convert")
   const currencyValueConverted = document.querySelector(".currency-value")
 
-
-  const dolarToday = 5.2
-  const euroToday = 6.2
-  const bitcoinToday = 0.030
+const data =await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL").then(Response=> Response.json())
+  
+  const dolar =data.USDBRL.high
+  const euro = data.EURBRL.high
+  const bitcoin = data.BTCBRL.high
   const libraToday = 0.15
+  console.log(data)
 
 
 
@@ -19,20 +21,20 @@ function convertValues() {
     currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD"
-    }).format(inputCurrencyValue / dolarToday)
+    }).format(inputCurrencyValue / dolar)
   }
   if (currencySelect.value == "Euro") {
     currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
       style: "currency",
       currency: "EUR"
-    }).format(inputCurrencyValue / euroToday)
+    }).format(inputCurrencyValue / euro)
   }
 
   if (currencySelect.value == "bitcoin") {
     currencyValueConverted.innerHTML = new Intl.NumberFormat("ja-JP", {
       style: "currency",
       currency: "JPY"
-    }).format(inputCurrencyValue / bitcoinToday)
+    }).format(inputCurrencyValue / bitcoin)
   }
   if (currencySelect.value == "libra") {
     currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
